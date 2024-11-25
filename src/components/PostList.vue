@@ -9,6 +9,7 @@
         // Basecard goes here
     </div>
   </div>
+  ❤️
 </template>
 
 <style scoped>
