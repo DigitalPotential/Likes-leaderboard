@@ -1,9 +1,28 @@
 <script setup>
+  defineProps({
+    variant: {
+      type: String,
+      default: 'default',
+      validator: (value) => ['default', 'highlight'].includes(value)
+    }
+  })
 
 </script>
 
 <template>
+  <div class="base-card" :class="variant">
+    <header class="card-header" v-if="$slots.header">
+      <slot name="header"></slot>
+    </header>
 
+    <div class="card-content">
+      <slot></slot>
+    </div>
+
+    <footer class="card-footer" v-if="$slots.footer">
+      <slot name="footer"></slot>
+    </footer>
+  </div>
 </template>
 
 <style scoped>

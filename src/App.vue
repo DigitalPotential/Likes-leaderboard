@@ -1,5 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
+import PostList from './components/PostList.vue'
+import Leaderboard from './components/Leaderboard.vue';
 
 const posts = ref([
   { id: 1, title: 'Beautiful Sunset', content: 'A beautiful sunset over the ocean.', summary: 'A beautiful suns...', likes: 5 },
@@ -23,11 +25,17 @@ const handleLike = (postId) => {
 <template>
   <div class="container">
     <header class="header">
-
+      Total Post Likes: {{ totalLikes }}
     </header>
 
     <div class="content-layout">
-      
+      <PostList 
+        :posts="posts"
+        @like-clicked="handleLike"
+      />
+      <Leaderboard
+        :posts="sortedPosts"
+      />
     </div>
   </div>
 </template>

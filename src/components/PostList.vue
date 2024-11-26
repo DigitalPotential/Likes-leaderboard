@@ -1,4 +1,14 @@
 <script setup>
+import BaseCard from './BaseCard.vue'
+
+defineProps({
+  posts: {
+    type: Array,
+    required: true
+  }
+})
+
+const emit = defineEmits(['like-clicked'])
 
 </script>
 
@@ -6,10 +16,33 @@
   <div class="posts-container">
     <h2>Posts</h2>
     <div class="post-list">
-        // Basecard goes here
+        <BaseCard
+          v-for="post in posts"
+          :key="post.id"
+          varient="default"
+        >
+          <template #header>
+            <h3>{{ post.title }}</h3>
+          </template>
+
+          <p>{{ post.content }}</p>
+
+          <template #footer>
+            <div class="likes-section">
+              <span class="likes-count">{{ post.likes }} likes</span>
+
+              <button
+                class="like-button"
+                @click="emit('like-clicked', post.id)"
+              >
+                ❤️ Like
+              </button>
+
+            </div>
+          </template>
+        </BaseCard>
     </div>
   </div>
-  ❤️
 </template>
 
 <style scoped>
