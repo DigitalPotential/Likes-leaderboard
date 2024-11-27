@@ -1,17 +1,40 @@
 <script setup>
-import { computed } from 'vue'
+import BaseCard from './BaseCard.vue'
+
+const props = defineProps({
+  posts: {
+    type: Array,
+    required: true
+  }
+})
 
 const getRankEmoji = (index) => {
   const emojis = ['🥇', '🥈', '🥉']
   return emojis[index] || `${index + 1}`
 }
-
 </script>
 
 <template>
   <div class="leaderboard">
     <h2>🏆 Top Posts</h2>
-        // Basecard goes here
+    <BaseCard
+      v-for="(post, index) in posts"
+      :key="post.id"
+      variant="highlight"
+    >
+      <template #header>
+        <div class="rank-header">
+          <span class="rank">{{ getRankEmoji(index) }}</span>
+          <h4>{{ post.title }}</h4>
+        </div>
+      </template>
+      
+      <p>{{ post.summary }}</p>
+      
+      <template #footer>
+        <span class="likes">{{ post.likes }} likes</span>
+      </template>
+    </BaseCard>
   </div>
 </template>
 
